@@ -961,29 +961,46 @@
     tick(); setInterval(tick, 1000);
   })();
 
-  /* BOUTON CALENDRIER */
-  (function() {
-    const btn = Utils.getElement('btn-calendar');
-    if (!btn) return;
-    btn.addEventListener('click', function() {
-      const icsContent = [
-        'BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//Julie&Thomas//Mariage//FR',
-        'CALSCALE:GREGORIAN','METHOD:PUBLISH','BEGIN:VEVENT',
-        'DTSTART:20270724T143000Z','DTEND:20270724T215900Z',
-        'SUMMARY:Mariage Julie & Thomas',
-        'DESCRIPTION:Cérémonie à 16h30 à la Mairie de Pin-Balma\\nVin d\'honneur à 18h00 au Domaine de Gailhaguet\\, Verfeil\\nRepas & Soirée à 20h',
-        'LOCATION:Mairie de Pin-Balma\\, Pl. de la Mairie\\, 31130 Pin-Balma',
-        'STATUS:CONFIRMED','BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY',
-        'DESCRIPTION:Mariage Julie & Thomas demain !','END:VALARM','END:VEVENT','END:VCALENDAR'
-      ].join('\r\n');
-      const blob = new Blob([icsContent], { type:'text/calendar;charset=utf-8' });
-      const url = URL.createObjectURL(blob);
-      const link = document.createElement('a');
-      link.href=url; link.download='mariage-julie-thomas.ics';
-      document.body.appendChild(link); link.click(); document.body.removeChild(link);
-      setTimeout(() => URL.revokeObjectURL(url), 1000);
-    });
-  })();
+/* BOUTON CALENDRIER */
+(function() {
+  const btn = Utils.getElement('btn-calendar');
+  if (!btn) return;
+
+  btn.addEventListener('click', function() {
+    const icsContent = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//Julie&Thomas//Mariage//FR',
+      'CALSCALE:GREGORIAN',
+      'METHOD:PUBLISH',
+      'BEGIN:VEVENT',
+      'DTSTART:20270724T143000Z',
+      'DTEND:20270724T215900Z',
+      'SUMMARY:Mariage Julie & Thomas',
+      'DESCRIPTION:Cérémonie à 16h30 à la Mairie de Pin-Balma\\n\\nVin d\'honneur à 18h00 au Domaine de Gailhaguet\\, Verfeil\\n\\nRepas & Soirée à 20h\\n\\nFaire-part : https://julietoanen-dev.github.io/JulieThomas-24Juillet2027/',
+      'URL:https://julietoanen-dev.github.io/JulieThomas-24Juillet2027/',
+      'LOCATION:Mairie de Pin-Balma\\, Pl. de la Mairie\\, 31130 Pin-Balma',
+      'STATUS:CONFIRMED',
+      'BEGIN:VALARM',
+      'TRIGGER:-P1D',
+      'ACTION:DISPLAY',
+      'DESCRIPTION:Mariage Julie & Thomas demain !',
+      'END:VALARM',
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ].join('\r\n');
+
+    const blob = new Blob([icsContent], { type: 'text/calendar;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'mariage-julie-thomas.ics';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+})();
 
   /* REVEAL */
   (function() {
